@@ -1,0 +1,110 @@
+html, 
+body {
+    height: 100%;
+}
+
+body{
+    background:#FFF;
+    background-size: cover;
+    display: block;
+    position: relative;
+    height:100%;
+}
+body::after {
+    content: "";
+    background: url("https://lorem-pixabay.herokuapp.com/?w=600&h=400&k=sport");
+    opacity: 0.1;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    position: absolute;
+    z-index: -1;
+    background-size:cover;
+    -webkit-filter: grayscale(100%); /* Safari 6.0 - 9.0 */
+    filter: grayscale(100%); 
+
+}
+h1, h2, h3 ,h4 ,h5 , h6{
+    text-transform:uppercase;
+}
+.container.form-container thead th{
+    background:#03a9f4;
+    color:#FFF;
+    font-weight:700;
+
+}
+.container.form-container {
+    padding-top: 250px;
+    padding-bottom:30px;
+    width:60%;
+    margin:0 auto;
+}
+.row.dashboard .container.form-container{
+    width:90%;
+}
+.row.dashboard .container.form-container .button.round{
+    padding: 6px;
+    font-size: 1.2em;
+    min-width: 35px;
+    min-height: 35px;
+    border-radius: 20px;
+}
+.container.form-container table{
+    width: 100%;
+}
+.form-container span.highlight{
+    color:#03a9f4;
+    font-weight: bold;
+}
+.not-found .title{
+    font-size:9em;
+
+}
+input[type="text"][disabled]{
+    background:white;
+    border:none;
+    box-shadow:none;
+}
+
+ul.menu {
+
+    margin-top: 20px;
+    list-style: none;
+}
+
+ul.menu li{
+    margin: 0 10px;
+    display: inline;
+}
+.alert-box.success {
+    font-size: 1.1em;
+}
+/*
+.alert-box.alert {
+    -moz-animation: hideAnimation 0s ease-in 3s forwards;
+    -webkit-animation: hideAnimation 0s ease-in 3s forwards;
+    -o-animation: hideAnimation 0s ease-in 3s forwards;
+    animation: hideAnimation 0s ease-in 3s forwards;
+    -webkit-animation-fill-mode: forwards;
+    animation-fill-mode: forwards;
+}
+
+@keyframes hideAnimation {
+    to {
+        opacity:0;
+        width: 0px;
+        height:0px;
+        display:none;
+    }
+}
+@-webkit-keyframes hideAnimation {
+    to {
+        opacity:0;
+        width: 0px;
+        height:0px;
+        display:none;
+
+    }
+}
+*/

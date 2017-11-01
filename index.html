@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Weather | A weather widget built using React</title>
+        <link src ="" style="stylesheet" />
+        <link rel='stylesheet' href="css/foundation.css" type='text/css' media='all' />
+        <link rel='stylesheet' href="css/font-awesome.min.css" type='text/css' media='all' />
+        <link rel='stylesheet' href="css/style.css" type='text/css' media='all' />
+        <link rel="shortcut icon" type="image/png" href="img/favicon.png"/>
+    </head>
+    <body> 
+<section class="row dashboard">
+    <section class="container form-container">
+        <h1>Manage all 
+            <span class="highlight">links</span>
+        </h1>
+            <table>
+                <thead>
+                    <tr>
+                        <th width="5%">#</th>
+                        <th width="30%">Full link</th>
+                        <th width="30%">Short link</th>
+                        <th width="15%">Date</th>
+                        <th width="25%">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <c:forEach items="${links}" var="link">
+                        <tr>
+                            <td>${link.id}</td>
+                            <td>${link.fullUrl}</td>
+                            <td>
+                                <a href="#">${baseURL}/${link.shortUrl}</a>
+                            </td>
+                            <td>${link.date}</td>
+                            <td>
+                                <a href="#" class="button round"><i class="fa fa-eye"></i></a> 
+                                <a href="#" class="button success round"><i class="fa fa-edit"></i></a> 
+                                <a href="#" class="button alert round"><i class="fa fa-trash-o"></i></a> 
+                            </td>
+                        </tr>
+                    </c:forEach>
+                </tbody>
+            </table>
+    </section>
+</section>
+<section class="row text-center">         
+    <div>This tool was built by Samuel Guebo. Its source code is avaialble 
+        <a href="https://github.com/samuelguebo/#">on Github</a>. 
+    </div>
+
+    <br/>
+</section>
+</body>
+</html>
