@@ -1,7 +1,5 @@
-var message = "hello world!";
-// Experimenting Javascript objects
 
-var students = [];
+// New Javascript objects
 
 function Student (firstName, lastName, age) {
     this.firstName = firstName;
@@ -15,16 +13,14 @@ function Student (firstName, lastName, age) {
     
 }
 
-students.push(new Student("Anthony", "Parker", 5));
-students.push(new Student("Maria", "Ines", 15));
-students.push(new Student("Rodrigo", "Padula", 15));
+var students = function () {
+    var studentList = [];
+    
+    studentList.push(new Student("Anthony", "Parker", 5));
+    studentList.push(new Student("Maria", "Ines", 15));
+    studentList.push(new Student("Rodrigo", "Padula", 15));
+    
+    return studentList;
+};
 
-for (var i = 0; i< students.length; i++) {
-    var student = students[i];
-    
-    // Iterating through keys
-    for (var key in student){
-        console.log(key + ": " + student[key]);
-    }
-    
-}
+module.exports = students;
