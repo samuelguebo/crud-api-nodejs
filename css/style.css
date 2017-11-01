@@ -34,6 +34,11 @@ h1, h2, h3 ,h4 ,h5 , h6{
     font-weight:700;
 
 }
+.container.form-container .currency{
+    border: 1px solid #03a9f4;
+    background: #03a9f4;
+    color: #FFF;
+}
 .container.form-container {
     padding-top: 250px;
     padding-bottom:30px;
