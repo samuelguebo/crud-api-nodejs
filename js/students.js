@@ -13,7 +13,7 @@ function Student (firstName, lastName, age) {
     
 }
 
-var students = function () {
+function makeStudentList() {
     var studentList = [];
     
     studentList.push(new Student("Anthony", "Parker", 5));
@@ -23,4 +23,5 @@ var students = function () {
     return studentList;
 };
 
+var students = makeStudentList(); 
 module.exports = students;
