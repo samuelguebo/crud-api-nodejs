@@ -41,7 +41,7 @@ h1, h2, h3 ,h4 ,h5 , h6{
     margin:0 auto;
 }
 .row.dashboard .container.form-container{
-    width:90%;
+    width:55%;
 }
 .row.dashboard .container.form-container .button.round{
     padding: 6px;
