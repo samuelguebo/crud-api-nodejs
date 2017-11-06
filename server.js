@@ -17,9 +17,9 @@ app.get('/students', function(request, response){
 });
 
 // Post controller
-app.post('/', function(request, response){
+app.post('/students', function(request, response){
     var student = request.body;
-    
+     
     // Filtering
     if (student.age == "") {
         response.status(500).send(
@@ -27,6 +27,35 @@ app.post('/', function(request, response){
         );
     }else {
         students.push(student);
+        response.status(200).send(students);
+    }
+});
+
+// Update controller
+app.put('/students/:firstName', function(request, response){
+    var newFirstName = request.params.firstName;
+    var newLastName = request.body.lastName;
+    var newAge = request.body.age;
+     
+    // Filtering
+    if (!newAge || newAge === "") {
+        response.status(500).send(
+            {error:"A student must have an age"}
+        );
+    }else {
+        
+        // Loop through the students list
+        for (var i= 0; i< students.length; i++) {
+            var student = students[i];
+            
+            // Updating the existing student
+            if (student.firstName === newFirstName) {
+                student.age = newAge;
+                student.lastName = newLastName;
+                break;
+            }
+            
+        }
         response.status(200).send(students);
     }
 });
