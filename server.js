@@ -7,10 +7,28 @@ var app         = express();
 var mongoose    = require('mongoose');
 var db          = mongoose.connect("mongodb://localhost/shop-api");
 
+// Importing models
+var Product = require('./js/model/product');
+var Wishlist = require('./js/model/wishlist');
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 
-// Home controller
+/**
+ * Product controllers
+ */
+app.post('/post', function(request, response) {
+    var product = new Product();
+    product.title = request.body.title;
+    product.price = request.body.price;
+    product.likes = request.body.likes;
+});
+
+/**
+ * Student controllers
+ */
+
+// List
 app.get('/', function(request, response){
     response.send("Hello World!");
 });
