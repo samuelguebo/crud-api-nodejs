@@ -3,6 +3,10 @@ var bodyParser  = require('body-parser');
 var students    = require('./js/students');
 var app         = express();
 
+// DB initialization
+var mongoose    = require('mongoose');
+var db          = mongoose.connect("mongodb://localhost/shop-api");
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 
