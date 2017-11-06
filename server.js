@@ -18,10 +18,25 @@ app.use(bodyParser.urlencoded({extended: false}));
  * Product controllers
  */
 app.post('/post', function(request, response) {
-    var product = new Product();
+    var product = new Product(request.body);
+    /*
     product.title = request.body.title;
     product.price = request.body.price;
-    product.likes = request.body.likes;
+    */
+    
+    // Inserting the row into the DB
+    product.save(function (err, savedProduct){
+        if (err){
+            // Returns an error
+            response.status(500).send({error:"Could not save the product"});
+        } else {
+            // Return the newly saved product
+            response.send(savedProduct); 
+        }
+        
+    });
+    
+
 });
 
 /**
