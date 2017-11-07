@@ -1,6 +1,6 @@
 var express     = require('express');
 var bodyParser  = require('body-parser');
-var students    = require('./js/students');
+var students    = require('./app/students');
 var app         = express();
 
 // DB initialization
@@ -8,15 +8,15 @@ var mongoose    = require('mongoose');
 var db          = mongoose.connect("mongodb://localhost/shop-api");
 
 // Importing models
-var Product = require('./js/model/product');
-var Wishlist = require('./js/model/wishlist');
+var Product = require('./app/model/product');
+var Wishlist = require('./app/model/wishlist');
 
 // Middelware or Interceptors
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 
 // Using routes
-app.use(require('./js/routes.js'))
+app.use(require('./app/routes.js'))
 
 // Setting server port 
 var port = 5000;
