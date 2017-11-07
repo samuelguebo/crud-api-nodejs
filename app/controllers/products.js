@@ -72,4 +72,29 @@ router.put('/:id', function(request, response){
     }
 });
 
+// Remove
+router.delete('/:id', function(request, response){
+    var product = request.body;
+    var id = mongoose.Types.ObjectId(request.params.id);
+    
+    // Filtering
+    if (!id.toString() || id.toString() === "") {
+        response.status(500).send(
+            {error:"A product must an ID"}
+        );
+    }else {
+        // Model.update(conditions, doc, [options], [callback])
+        Product.remove({_id: id}, 
+            function (err, raw) {
+                if (err) {
+                    response.send(err.message);
+                    //response.status(500).send({error:"Could not update the product"});
+                } else {
+                    response.send(raw);
+                }
+            }
+        );
+    }
+});
+
 module.exports = router;
