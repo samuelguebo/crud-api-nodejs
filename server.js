@@ -7,10 +7,6 @@ var app         = express();
 var mongoose    = require('mongoose');
 var db          = mongoose.connect("mongodb://localhost/shop-api");
 
-// Importing models
-var Product = require('./app/model/product');
-var Wishlist = require('./app/model/wishlist');
-
 // Middelware or Interceptors
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));

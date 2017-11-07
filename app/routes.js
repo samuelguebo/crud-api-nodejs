@@ -1,6 +1,10 @@
 var express = require('express');
 var router  = express.Router();
 
+// Importing models
+var Product = require('./model/product');
+var Wishlist = require('./model/wishlist');
+
 /**
  * Product controllers
  */
