@@ -2,10 +2,11 @@ var express = require('express');
 var router  = express.Router();
 
 // Importing models
-var Product = require('./model/product');
+var Product = require('../models/product');
+
 
 // Save
-router.post('/products', function(request, response) {
+router.post('/', function(request, response) {
     var product = new Product(request.body);
     /*
     product.title = request.body.title;
@@ -28,7 +29,7 @@ router.post('/products', function(request, response) {
 });
 
 // Find
-router.get('/products', function(request, response) {
+router.get('/', function(request, response) {
     
     // Finding 10 records
     Product.find(function (err, products){
@@ -46,7 +47,7 @@ router.get('/products', function(request, response) {
 });
 
 // Update 
-router.put('/product/:title', function(request, response){
+router.put('/:title', function(request, response){
     
     // Filtering
     if (!title || title === "") {

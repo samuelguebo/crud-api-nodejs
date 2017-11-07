@@ -1,6 +1,6 @@
 var express     = require('express');
-var bodyParser  = require('body-parser');
 var app         = express();
+var bodyParser  = require('body-parser');
 
 // DB initialization
 var mongoose    = require('mongoose');
@@ -11,8 +11,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 
 // Using routes
-app.use('/products', require('./app/controllers/products.js'));
-app.use('/students', require('./app/controllers/students.js'));
+app.use(require('./app/controllers'));
 
 // Setting server port 
 var port = 5000;
