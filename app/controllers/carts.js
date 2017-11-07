@@ -5,27 +5,8 @@ var mongoose    = require('mongoose');
 // Importing models
 var Product = require('../models/product');
 
-
-// List
-router.get('/', function(request, response) {
-    
-    // Finding 10 records
-    Product.find(function (err, products){
-        if (err){
-            // Returns an error
-            response.status(500).send({error:"Could not find any product"});
-        } else {
-            // Return the newly saved product
-            response.send(products); 
-        }
-        
-    }).
-    limit(10);
-
-});
-
 // Read 
-router.get('/:id', function(request, response){
+router.get('/', function(request, response){
     var product = request.body;
     var id = mongoose.Types.ObjectId(request.params.id);
     
@@ -73,7 +54,7 @@ router.post('/', function(request, response) {
 });
 
 // Update 
-router.put('/:id', function(request, response){
+router.put('/', function(request, response){
     var product = request.body;
     var id = mongoose.Types.ObjectId(request.params.id);
     
@@ -98,7 +79,7 @@ router.put('/:id', function(request, response){
 });
 
 // Delete
-router.delete('/:id', function(request, response){
+router.delete('/', function(request, response){
     var product = request.body;
     var id = mongoose.Types.ObjectId(request.params.id);
     
