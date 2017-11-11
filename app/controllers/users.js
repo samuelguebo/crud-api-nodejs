@@ -4,7 +4,6 @@ var mongoose = require('mongoose');
 
 // Importing model
 var User = require('../models/user');
-var Cart = require('../models/cart');
 
 // List
 router.get('/', function(request, response) {
@@ -59,13 +58,6 @@ router.post('/', function(request, response) {
             // Returns an error
             response.status(500).send({error:"Could not save the user"});
         } else {
-            // Return the newly saved user
-            User.update({_id: savedUser._id}, {$set:{cart: savedUser._id}}, function( err, raw){
-                if (err){
-                    // Returns an error
-                    response.status(500).send({error:"Could not create the cart"});
-                }
-            } );
             response.send(savedUser); 
         }
     });
