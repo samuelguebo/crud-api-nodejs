@@ -2,7 +2,7 @@ var express = require('express');
 var router  = express.Router();
 
 // Importing models
-var Wishlist = require('./model/wishlist');
+var Category = require('./model/category');
 
 
 module.exports = router;
