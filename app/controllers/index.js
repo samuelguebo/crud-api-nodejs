@@ -1,8 +1,8 @@
 var express = require('express'),
     router = express.Router();
 
-router.use('/products', require('./products'));
+router.use('/posts', require('./posts'));
 router.use('/users', require('./users'));
-router.use('/carts', require('./carts'));
+router.use('/categories', require('./categories'));
 
 module.exports = router;
