@@ -1,7 +1,7 @@
 {
-  "name": "shop-api",
+  "name": "blog-api-mean",
   "version": "1.0.0",
-  "description": "Shop Api",
+  "description": "A blog system with a REST API builg using MongoDB, Express, Angular and Nodejs",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
