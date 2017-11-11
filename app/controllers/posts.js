@@ -35,7 +35,6 @@ router.get('/:id', function(request, response){
             {error:"A post must an ID"}
         );
     }else {
-        // Model.update(conditions, doc, [options], [callback])
         Post.findOne({_id: id}, 
             function (err, raw) {
                 if (err) {
@@ -52,10 +51,6 @@ router.get('/:id', function(request, response){
 // Create
 router.post('/', function(request, response) {
     var post = new Post(request.body);
-    /*
-    post.title = request.body.title;
-    post.price = request.body.price;
-    */
     
     // Inserting the row into the DB
     post.save(function (err, savedPost){
