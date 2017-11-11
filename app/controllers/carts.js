@@ -2,11 +2,29 @@ var express     = require('express');
 var router      = express.Router();
 var mongoose    = require('mongoose');
 
-// Importing models
-var Product = require('../models/product');
+// Importing model
+var Cart = require('../models/cart');
+
+// List
+router.get('/', function(request, response) {
+    
+    // Finding 10 records
+    Cart.find(function (err, carts){
+        if (err){
+            // Returns an error
+            response.status(500).send({error:"Could not find any product"});
+        } else {
+            // Return the newly saved product
+            response.send(carts); 
+        }
+        
+    }).
+    limit(10);
+
+});
 
 // Read 
-router.get('/', function(request, response){
+router.get('/:id', function(request, response){
     var product = request.body;
     var id = mongoose.Types.ObjectId(request.params.id);
     
@@ -30,13 +48,26 @@ router.get('/', function(request, response){
     }
 });
 
-// Create
-router.post('/', function(request, response) {
-    var product = new Product(request.body);
-    /*
-    product.title = request.body.title;
-    product.price = request.body.price;
-    */
+// Adding item to cart
+router.put('/product/add', function(request, response) {
+    
+    // Finding the product first
+    Product.findOne({_id: request.body.productId}, function (err, product) {
+        if (err) {
+            response.status(500).send({error:"Coult not find any product"});
+        } else {
+            Cart.update({_id: request.body.cartId}, {$addToSet: {products: product._id}}, 
+                        function (err, raw){
+                if (err){
+                    // Returns an error
+                    response.status(500).send({error:"Could not add product to cart"});
+                } else {
+                    // Return the newly saved product
+                    response.send(raw); 
+                }
+            })
+        }
+    })
     
     // Inserting the row into the DB
     product.save(function (err, savedProduct){
