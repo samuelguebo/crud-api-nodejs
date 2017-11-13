@@ -13,6 +13,11 @@ var db          = mongoose.connect("mongodb://localhost/blog-api-mean");
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 
+
+var seedLoader = require('./app/utils/seedloader');
+app.use(seedLoader);
+
+
 // Using routes
 app.use(require('./app/controllers'));
 
