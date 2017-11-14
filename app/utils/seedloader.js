@@ -72,7 +72,14 @@ var SeedLoader =
         }
     ]
     
+    // create categories seed
 
+    const categories = [
+        { title: 'Technology' }, { title: 'Health' }, { title: 'Sport' }, { title: 'Food' }, 
+        { title: 'Religion' }, { title: 'Politics' }, { title: 'Culture' }, 
+        { title: 'Music' }, { title: 'Fashion' }, { title: 'Economy' }
+    ]
+    
     //loadAndSave( users, User);
     loadAndSave( posts, Post);
     
