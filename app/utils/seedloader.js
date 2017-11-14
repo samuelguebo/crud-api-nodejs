@@ -6,7 +6,7 @@ var User = require('../models/user.js');
  */
 var SeedLoader = function (request, response, next) {
     
-    // create some users
+    // create users seed
     
     const users = [
         {
@@ -28,18 +28,32 @@ var SeedLoader = function (request, response, next) {
         
     ];
     
-    // use the User model to save
+    // save users
     
-    for (user of users){
-        let newUser = new User(user);
-        newUser.save();
-    }
+    loadAndSave( users, User)
     
     console.log("Entered SeedLoader Middleware");
     next();
 }
 
 
+/** 
+ * Generic loading function
+ * @param items, an array of json objects
+ * @param model, the model used for persistence
+ *
+ */
 
+function loadAndSave( items, model ) {
+    
+    
+    // use the model to save
+    
+    for (item of items){
+        let newModel = new model(item);
+        newModel.save();
+    }
+    
+}
 
 module.exports = SeedLoader;
