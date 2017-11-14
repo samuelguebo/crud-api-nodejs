@@ -2,7 +2,7 @@
 
 var User        = require('../models/user.js');
 var Post        = require('../models/post.js');
-var Category    = require('../models/post.js');
+var Category    = require('../models/category.js');
 var utils       = require('../utils/utils.js');
 
 // Seeding the Database
