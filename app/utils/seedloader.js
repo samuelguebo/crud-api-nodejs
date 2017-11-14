@@ -86,9 +86,12 @@ var SeedLoader =
     
     //loadAndSave( users, User);
     //loadAndSave( posts, Post);
-    loadAndSave( categories, Category);
+    // loadAndSave( categories, Category);
     
+    // apply the relationships between models
     
+    loadAndSaveRelationships();
+
     console.log("Entered SeedLoader Middleware");
     next();
 }
@@ -103,14 +106,31 @@ var SeedLoader =
 
 function loadAndSave( items, model ) {
     
+    // use the model to save
+    
+    for (item of items){
+        let newModel = new model(item);
+        newModel.save();
+    }   
+}
+
+/** 
+ * Applying the rules and bindings 
+ * between models
+ */
+
+function loadAndSaveRelationships( ) {
+    
+    let posts = Post.find();
+    let users = User.find();
+    let categories = Category.find();
     
     // use the model to save
     
     for (item of items){
         let newModel = new model(item);
         newModel.save();
-    }
-    
+    }   
 }
 
 module.exports = SeedLoader;
