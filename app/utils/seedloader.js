@@ -1,8 +1,9 @@
 // Requiring models
 
-var User = require('../models/user.js');
-var Post = require('../models/post.js');
-var utils = require('../utils/utils.js');
+var User        = require('../models/user.js');
+var Post        = require('../models/post.js');
+var Category    = require('../models/post.js');
+var utils       = require('../utils/utils.js');
 
 // Seeding the Database
 
@@ -75,13 +76,17 @@ var SeedLoader =
     // create categories seed
 
     const categories = [
+        
         { title: 'Technology' }, { title: 'Health' }, { title: 'Sport' }, { title: 'Food' }, 
         { title: 'Religion' }, { title: 'Politics' }, { title: 'Culture' }, 
         { title: 'Music' }, { title: 'Fashion' }, { title: 'Economy' }
     ]
     
+    // populate DB with array
+    
     //loadAndSave( users, User);
-    loadAndSave( posts, Post);
+    //loadAndSave( posts, Post);
+    loadAndSave( categories, Category);
     
     
     console.log("Entered SeedLoader Middleware");
