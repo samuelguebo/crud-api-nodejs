@@ -129,14 +129,14 @@ function loadAndSaveRelationships( ) {
     
     for (posts of post){
         
+        // picking a random category
+        let randCategory =  categories[Math.floor(Math.random() * categories.length)];
+            
+        // picking a random user 
+        let randUser =  users[Math.floor(Math.random() * users.length)];
+        
         post.update(
         function(err, raw) {
-            
-            // picking a random category
-            let randCategory =  categories[Math.floor(Math.random() * categories.length)];
-            
-            // picking a random user 
-            let randUser =  users[Math.floor(Math.random() * users.length)];
             
             // check for errors
            if(err) {
