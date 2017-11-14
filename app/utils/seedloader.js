@@ -1,5 +1,6 @@
 // Requiring models
 var User = require('../models/user.js');
+var utils = require('../utls/utils.js');
 
 /**
  * Seeding the Database
@@ -28,6 +29,14 @@ var SeedLoader = function (request, response, next) {
         
     ];
     
+    const posts = [
+        {
+            title: 'You Must Unlearn What You Have Learned',
+            content: '',
+            pubDate: String
+        },
+    ]
+    
 
     loadAndSave( users, User);
     
@@ -51,7 +60,7 @@ function loadAndSave( items, model ) {
     
     for (item of items){
         let newModel = new model(item);
-        newModel.save();
+        newModel.as;
     }
     
 }
