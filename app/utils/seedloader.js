@@ -1,10 +1,12 @@
 // Requiring models
-var User = require('../models.user.js');
+var User = require('../models/user.js');
 
 /**
  * Seeding the Database
  */
 var SeedLoader = function (request, response, next) {
+    
+    // create some users
     
     const users = [
         {
@@ -26,6 +28,12 @@ var SeedLoader = function (request, response, next) {
         
     ];
     
+    // use the User model to save
+    
+    for (user of users){
+        let newUser = new User(user);
+        newUser.save();
+    }
     
     console.log("Entered SeedLoader Middleware");
     next();
