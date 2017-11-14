@@ -1,6 +1,6 @@
 // Requiring models
 var User = require('../models/user.js');
-var utils = require('../utls/utils.js');
+var utils = require('../utils/utils.js');
 
 /**
  * Seeding the Database
@@ -32,7 +32,7 @@ var SeedLoader = function (request, response, next) {
     const posts = [
         {
             title: 'You Must Unlearn What You Have Learned',
-            content: '',
+            content: utils.loremIpsumGenerator(),
             pubDate: String
         },
     ]
