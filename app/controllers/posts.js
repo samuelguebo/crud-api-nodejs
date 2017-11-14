@@ -19,7 +19,12 @@ router.get('/', function(request, response) {
             response.send(posts); 
         }
         
-    }).limit(10);
+    })
+    .limit(10)
+    .populate('author', 'categories')
+    .exec
+    
+    ;
 
     
     
