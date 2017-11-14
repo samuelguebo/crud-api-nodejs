@@ -10,7 +10,7 @@ var utils = {
         },
     currentDate: 
         function (){
-            let date = new Date().toLocaleDateString('en-US');
+            let date = new Date().toLocaleTimeString();
             return date;
         }
 }

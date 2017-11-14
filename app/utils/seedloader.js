@@ -65,14 +65,19 @@ var SeedLoader =
             content: utils.loremIpsumGenerator(),
             pubDate: utils.currentDate()
         },
+        {
+            title: 'Understanding The Vary Header',
+            content: utils.loremIpsumGenerator(),
+            pubDate: utils.currentDate()
+        }
     ]
     
 
-    loadAndSave( users, User);
+    //loadAndSave( users, User);
     loadAndSave( posts, Post);
     
     
-    console.log("Entered SeedLoader Middleware with " + User.count({}) + " users");
+    console.log("Entered SeedLoader Middleware");
     next();
 }
 
@@ -91,7 +96,7 @@ function loadAndSave( items, model ) {
     
     for (item of items){
         let newModel = new model(item);
-        newModel.as;
+        newModel.save();
     }
     
 }
