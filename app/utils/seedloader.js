@@ -29,16 +29,44 @@ var SeedLoader = function (request, response, next) {
         
     ];
     
+    // create posts seed
+    
     const posts = [
         {
             title: 'You Must Unlearn What You Have Learned',
             content: utils.loremIpsumGenerator(),
-            pubDate: String
+            pubDate: utils.currentDate()
+        },
+        {
+            title: 'Mobile Interface Myths You Should Throw Out The Window',
+            content: utils.loremIpsumGenerator(),
+            pubDate: utils.currentDate()
+        },
+        {
+            title: 'Creating Secure Password Resets With JSON Web Tokens',
+            content: utils.loremIpsumGenerator(),
+            pubDate: utils.currentDate()
+        },
+        {
+            title: '10 Simple Tips To Improve User Testing',
+            content: utils.loremIpsumGenerator(),
+            pubDate: utils.currentDate()
+        },
+        {
+            title: 'Maximizing The Design Sprint',
+            content: utils.loremIpsumGenerator(),
+            pubDate: utils.currentDate()
+        },
+        {
+            title: 'Right-To-Left Development In Mobile Design',
+            content: utils.loremIpsumGenerator(),
+            pubDate: utils.currentDate()
         },
     ]
     
 
     loadAndSave( users, User);
+    loadAndSave( posts, Post);
     
     
     console.log("Entered SeedLoader Middleware with " + User.count({}) + " users");
