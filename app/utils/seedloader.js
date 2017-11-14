@@ -28,11 +28,11 @@ var SeedLoader = function (request, response, next) {
         
     ];
     
-    // save users
+
+    loadAndSave( users, User);
     
-    loadAndSave( users, User)
     
-    console.log("Entered SeedLoader Middleware");
+    console.log("Entered SeedLoader Middleware with " + User.count({}) + " users");
     next();
 }
 
