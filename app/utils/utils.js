@@ -1,3 +1,4 @@
+var moment = require('moment');
 var utils = {
     loremIpsumGenerator: 
         function (){
@@ -10,7 +11,8 @@ var utils = {
         },
     currentDate: 
         function (){
-            let date = new Date().toLocaleTimeString();
+            var now = new moment();
+            let date = moment().format('MMMM Do YYYY, h:mm:ss a');
             return date;
         }
 }
