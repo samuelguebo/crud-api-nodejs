@@ -1,11 +1,14 @@
 // Requiring models
+
 var User = require('../models/user.js');
+var Post = require('../models/post.js');
 var utils = require('../utils/utils.js');
 
-/**
- * Seeding the Database
- */
-var SeedLoader = function (request, response, next) {
+// Seeding the Database
+
+var SeedLoader = 
+    
+    function (request, response, next) {
     
     // create users seed
     
