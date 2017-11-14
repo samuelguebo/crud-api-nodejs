@@ -127,9 +127,23 @@ function loadAndSaveRelationships( ) {
     
     // use the model to save
     
-    for (item of items){
-        let newModel = new model(item);
-        newModel.save();
+    for (posts of post){
+        
+        post.update(
+        function(err, raw) {
+            
+            // picking a random category
+            let randCategory =  categories[Math.floor(Math.random() * categories.length)];
+        
+            // check for errors
+           if(err) {
+               console.log(post.title + '');
+           }else{
+               console.log('could not update the item');
+           }
+
+        });
+        
     }   
 }
 
