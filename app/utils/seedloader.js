@@ -125,53 +125,55 @@ function applyRelationships() {
     Post.find(function (err, posts){
         
         if(!err){                
-                Category.find( function  (err, categories) {
-                    if (!err) {
+            Category.find( function  (err, categories) {
+                if (!err) {
 
-                        User.find( function (err, users ){
-                            if (!err) {
+                    User.find( function (err, users ){
+                        if (!err) {
 
-                                // loop through existing posts
-                                for (post of posts){
-                                    
-                                    // pick a random user 
-                                    var randUser =  users[Math.floor(Math.random() * users.length)];
-                                    
-                                    // pick a random category
-                                    var randCategory =  categories[Math.floor(Math.random() * categories.length)];
-                                    
-                                    // update the model
-                                    Post.update( post, {$addToSet: {author: randUser._id},
-                                                
-                                    function(updateErr, raw) {
+                            // loop through existing posts
+                            for (post of posts){
 
-                                        // check for errors
-                                       if(updateErr) {
-                                           console.log(updateErr);
-                                           
-                                       }else{
-                                           
-                                           //console.log(raw);
-                                           
-                                           // Second update query
-                                           
-                                           Post.update( post, {$addToSet: {categories: randCategory._id} }, function (err, raw){
-                                               if(!err){
-                                                    console.log(post.title + ' was updated. Author: ' + randUser + ', category: ' + randCategory);
-                                               }else {
-                                                   console.log(err);
-                                               }
-                                           });
-                                
-                                    });
+                                // pick a random user 
+                                var randUser =  users[Math.floor(Math.random() * users.length)];
+
+                                // pick a random category
+                                var randCategory =  categories[Math.floor(Math.random() * categories.length)];
+
+                                // update the model
+                                Post.update( post, {$addToSet: {author: randUser._id}},
+
+                                function(updateErr, raw) {
+
+                                    // check for errors
+                                   if(updateErr) {
+                                       console.log(updateErr);
+
+                                   }else{
+
+                                       //console.log(raw);
+
+                                       // Second update query
+
+                                       Post.update( post, {$addToSet: {categories: randCategory._id} }, function (err, raw){
+                                           if(!err){
+                                                //console.log(post.title + ' was updated. Author: ' + randUser + ', category: ' + randCategory);
+                                               console.log(raw);
+                                           }else {
+                                               console.log(err);
+                                           }
+                                       });
+
                                 }
-                            }else { console.log('could not update the item'); }
-                        });
+                            });
 
-                } else { console.log('could not update the item'); }                
+                        }
+                    } else { console.log('could not update the item'); } 
 
-            });   
-        } else { console.log('could not update the item'); }
+                });   
+                } else { console.log('could not update the item'); }
+            });
+        };
     });
 }
 

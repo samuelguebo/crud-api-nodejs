@@ -21,9 +21,9 @@ router.get('/', function(request, response) {
         
     })
     //.limit(10)
-    .populate('author')
-    .populate('categories')
-    .exec()
+    //.populate('author')
+    //.populate('categories')
+    //.exec()
 
 });
 
