@@ -170,4 +170,11 @@ function runQuerries(){
     applyRelationships();
 }
 
+/**
+ * Make sure the Db is empty before 
+ * persistingData
+ */
+
+function oneTimeInsert()
+
 module.exports = SeedLoader;
