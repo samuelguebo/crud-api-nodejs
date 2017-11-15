@@ -27,10 +27,12 @@ var utils = {
             Post.find( function(err, posts) {
                 if (!error){
                     
+                    // Check for Category model existence
                     Category.find( function(err, posts) {
                         if (!error){
                             
-                            Category.find( function(err, posts) {
+                            // Check for User model existence
+                            User.find( function(err, posts) {
                                 if (!error){
 
                                 } else { console.log(err); }
