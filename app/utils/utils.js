@@ -24,16 +24,19 @@ var utils = {
             var isDbEmpty = true;
             
             // Check for Post model existence
-            Post.find( function(err, posts) {
-                if (!error){
+            Post.findOne( function(err, posts) {
+                if (!err){
                     
                     // Check for Category model existence
-                    Category.find( function(err, posts) {
-                        if (!error){
+                    Category.findOne( function(err, posts) {
+                        if (!err){
                             
                             // Check for User model existence
-                            User.find( function(err, posts) {
-                                if (!error){
+                            User.findOne( function(err, posts) {
+                                if (!err){
+                                    
+                                    // The Db is not empty
+                                    isDbEmpty = false;
 
                                 } else { console.log(err); }
                             });
