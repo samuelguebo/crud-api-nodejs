@@ -1,8 +1,4 @@
 var moment = require('moment');
-var Post = require('../models/post');
-var User = require('../models/user');
-var Category = require('../models/category');
-
 var utils = {
     loremIpsumGenerator: 
         function (){
