@@ -12,7 +12,7 @@ var SeedLoader =
     function (request, response, next) {
         
     // Running db imports
-    utils.isDbEmpty( runQuerries );
+    oneTimeInsert( runQuerries );
         
     console.log("Entered Seedloader middleware");
     next();
@@ -181,21 +181,21 @@ function oneTimeInsert( callback ){
         if (!err){
 
             // see if it's empty 
-            if (0 <= posts.length) {
+            if (0 >= posts.length) {
 
                 // check for Category model existence
                 Category.find( function(err, categories) {
                     if (!err){
 
                         // see if it's empty 
-                        if (0 <= categories.length) {
+                        if (0 >= categories.length) {
 
                             // check for User model existence
                             User.find( function(err, users) {
                                 if (!err){
 
                                     // see if it's empty 
-                                    if (0 <= users.length) {
+                                    if (0 >= users.length) {
 
                                         // The Db is empty, fire the callback
                                         callback();
