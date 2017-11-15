@@ -20,9 +20,8 @@ app.use(bodyParser.urlencoded({extended: false}));
 var utils = require('./app/utils/utils');
 var seedLoader = require('./app/utils/seedloader');
     
-    if ( utils.isDbEmpty() ) {
-        app.use(seedLoader);
-    }
+app.use(seedLoader);
+
 
 
 

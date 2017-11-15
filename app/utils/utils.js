@@ -20,33 +20,48 @@ var utils = {
             return date;
         },
     isDbEmpty: 
-        function(){
-            var isDbEmpty = true;
-            
-            // Check for Post model existence
-            Post.findOne( function(err, posts) {
+        function( callback ){
+            // check for Post model existence
+            Post.find( function(err, posts) {
                 if (!err){
                     
-                    // Check for Category model existence
-                    Category.findOne( function(err, posts) {
-                        if (!err){
-                            
-                            // Check for User model existence
-                            User.findOne( function(err, posts) {
-                                if (!err){
+                    // see if it's empty 
+                    if (0 <= posts.length) {
+                        
+                        // check for Category model existence
+                        Category.find( function(err, categories) {
+                            if (!err){
+                                
+                                // see if it's empty 
+                                if (0 <= categories.length) {
                                     
-                                    // The Db is not empty
-                                    isDbEmpty = false;
+                                    // check for User model existence
+                                    User.find( function(err, users) {
+                                        if (!err){
+                                            
+                                            // see if it's empty 
+                                            if (0 <= users.length) {
+                                                
+                                                // The Db is empty, fire the callback
+                                                callback();
+                                                return true;
+                                                
+                                            } else { return false; }
+                                            
+                                        } else { console.log(err); }
+                                });
+                                    
+                                } else { return false; }
 
-                                } else { console.log(err); }
-                            });
-                        } else { console.log(err); }
-                    });
+                            } else { console.log(err); }
+                        });
+                    } else {
+                        return false;
+                    }
+                    
                     
                 } else { console.log(err); }
             });
-            
-            return isDbEmpty;
         }
 }
 module.exports = utils;

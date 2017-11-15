@@ -10,7 +10,85 @@ var utils       = require('../utils/utils.js');
 var SeedLoader = 
     
     function (request, response, next) {
+        
+    // Running db imports
+    utils.isDbEmpty( runQuerries );
+        
+    console.log("Entered Seedloader middleware");
+    next();
+}
+
+
+/** 
+ * Generic loade function
+ * @param items, an array of json objects
+ * @param model, the model used for persistence
+ *
+ */
+
+function loadAndSave( items, model ) {
     
+    // use the model to save
+    
+    for (item of items){
+        let newModel = new model(item);
+        newModel.save();
+    }   
+}
+
+/** 
+ * Apply the rules and bindings 
+ * between models
+ */
+
+function applyRelationships() {
+        
+    // find post and update them
+    Post.find(function (err, posts){
+        
+        if(!err){                
+            Category.find( function  (err, categories) {
+                if (!err) {
+
+                    User.find( function (err, users ){
+                        if (!err) {
+
+                            // loop through existing posts
+                            for (post of posts){
+
+                                // pick a random user 
+                                var randUser =  users[Math.floor(Math.random() * users.length)];
+
+                                // pick a random category
+                                var randCategory =  categories[Math.floor(Math.random() * categories.length)];
+
+                                // update the model
+                                Post.update( post, {$addToSet: {author: randUser._id} },{$addToSet: {categories: randCategory._id} } ,
+
+                                function(updateErr, raw) {
+
+                                    // check for errors
+                                   if(updateErr) {
+                                       console.log(updateErr);
+
+                                   }
+                            });
+
+                        }
+                    } else { console.log('could not update the item'); } 
+
+                });   
+                } else { console.log('could not update the item'); }
+            });
+        };
+    });
+}
+
+/**
+ * Wrapping the above functions
+ */
+
+function runQuerries(){
     // create users seed
     
     const users = [
@@ -81,7 +159,6 @@ var SeedLoader =
         { title: 'Religion' }, { title: 'Politics' }, { title: 'Culture' }, 
         { title: 'Music' }, { title: 'Fashion' }, { title: 'Economy' }
     ]
-    
     // populate DB with array
     
     loadAndSave( users, User);
@@ -91,92 +168,6 @@ var SeedLoader =
     // apply the relationships between models
     
     applyRelationships();
-
-    console.log("Entered Seedloader middleware");
-    next();
-}
-
-
-/** 
- * Generic loade function
- * @param items, an array of json objects
- * @param model, the model used for persistence
- *
- */
-
-function loadAndSave( items, model ) {
-    
-    // use the model to save
-    
-    for (item of items){
-        let newModel = new model(item);
-        newModel.save();
-    }   
-}
-
-/** 
- * Apply the rules and bindings 
- * between models
- */
-
-function applyRelationships() {
-        
-    // find post and update them
-    Post.find(function (err, posts){
-        
-        if(!err){                
-            Category.find( function  (err, categories) {
-                if (!err) {
-
-                    User.find( function (err, users ){
-                        if (!err) {
-
-                            // loop through existing posts
-                            for (post of posts){
-
-                                // pick a random user 
-                                var randUser =  users[Math.floor(Math.random() * users.length)];
-
-                                // pick a random category
-                                var randCategory =  categories[Math.floor(Math.random() * categories.length)];
-
-                                // update the model
-                                Post.update( post, {$addToSet: {author: randUser._id} },{$addToSet: {categories: randCategory._id} } ,
-
-                                function(updateErr, raw) {
-
-                                    // check for errors
-                                   if(updateErr) {
-                                       console.log(updateErr);
-
-                                   }else{
-
-                                       console.log(raw);
-
-                                       // Second update query
-                                       
-                                       /*
-                                       Post.update( post, {$addToSet: {categories: randCategory._id} }, function (err, raw){
-                                           if(!err){
-                                                //console.log(post.title + ' was updated. Author: ' + randUser + ', category: ' + randCategory);
-                                               console.log(raw);
-                                           }else {
-                                               console.log(err);
-                                           }
-                                       });
-                                       */
-
-                                }
-                            });
-
-                        }
-                    } else { console.log('could not update the item'); } 
-
-                });   
-                } else { console.log('could not update the item'); }
-            });
-        };
-    });
 }
 
 module.exports = SeedLoader;
