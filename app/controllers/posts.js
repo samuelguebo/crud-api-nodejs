@@ -20,14 +20,11 @@ router.get('/', function(request, response) {
         }
         
     })
-    .limit(10)
-    .populate('author', 'categories')
-    .exec
-    
-    ;
+    //.limit(10)
+    .populate('author')
+    .populate('categories')
+    .exec()
 
-    
-    
 });
 
 // Read 

@@ -85,12 +85,12 @@ var SeedLoader =
     // populate DB with array
     
     //loadAndSave( users, User);
-    //loadAndSave( posts, Post);
     //loadAndSave( categories, Category);
+    //loadAndSave( posts, Post);
     
     // apply the relationships between models
     
-    loadAndSaveRelationships();
+    applyRelationships();
 
     console.log("Entered Seedloader middleware");
     next();
@@ -119,7 +119,7 @@ function loadAndSave( items, model ) {
  * between models
  */
 
-function loadAndSaveRelationships() {
+function applyRelationships() {
         
     // find post and update them
     Post.find(function (err, posts){
@@ -128,29 +128,41 @@ function loadAndSaveRelationships() {
                 Category.find( function  (err, categories) {
                     if (!err) {
 
-                        // pick a random category
-                        var randCategory =  categories[Math.floor(Math.random() * categories.length)];
-
                         User.find( function (err, users ){
                             if (!err) {
 
-                                // pick a random user 
-                                var randUser =  users[Math.floor(Math.random() * users.length)];
-
                                 // loop through existing posts
                                 for (post of posts){
-
+                                    
+                                    // pick a random user 
+                                    var randUser =  users[Math.floor(Math.random() * users.length)];
+                                    
+                                    // pick a random category
+                                    var randCategory =  categories[Math.floor(Math.random() * categories.length)];
+                                    
                                     // update the model
-                                    Post.update( {_id: post._id}, { $addToset: [{author: randUser}, {categories: randCategory}] },
-                                    function(err, raw) {
+                                    Post.update( post, {$addToSet: {author: randUser._id},
+                                                
+                                    function(updateErr, raw) {
 
                                         // check for errors
-                                       if(!err) {
-                                           console.log(post.title + ' was updated. Author: ' + randUser + ', category: ' + randCategory);
+                                       if(updateErr) {
+                                           console.log(updateErr);
+                                           
                                        }else{
-                                           console.log('could not update the item');
-                                       }
-
+                                           
+                                           //console.log(raw);
+                                           
+                                           // Second update query
+                                           
+                                           Post.update( post, {$addToSet: {categories: randCategory._id} }, function (err, raw){
+                                               if(!err){
+                                                    console.log(post.title + ' was updated. Author: ' + randUser + ', category: ' + randCategory);
+                                               }else {
+                                                   console.log(err);
+                                               }
+                                           });
+                                
                                     });
                                 }
                             }else { console.log('could not update the item'); }
