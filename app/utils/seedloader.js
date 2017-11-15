@@ -84,9 +84,9 @@ var SeedLoader =
     
     // populate DB with array
     
-    //loadAndSave( users, User);
-    //loadAndSave( categories, Category);
-    //loadAndSave( posts, Post);
+    loadAndSave( users, User);
+    loadAndSave( categories, Category);
+    loadAndSave( posts, Post);
     
     // apply the relationships between models
     
@@ -141,7 +141,7 @@ function applyRelationships() {
                                 var randCategory =  categories[Math.floor(Math.random() * categories.length)];
 
                                 // update the model
-                                Post.update( post, {$addToSet: {author: randUser._id}},
+                                Post.update( post, {$addToSet: {author: randUser._id} },{$addToSet: {categories: randCategory._id} } ,
 
                                 function(updateErr, raw) {
 
@@ -151,10 +151,11 @@ function applyRelationships() {
 
                                    }else{
 
-                                       //console.log(raw);
+                                       console.log(raw);
 
                                        // Second update query
-
+                                       
+                                       /*
                                        Post.update( post, {$addToSet: {categories: randCategory._id} }, function (err, raw){
                                            if(!err){
                                                 //console.log(post.title + ' was updated. Author: ' + randUser + ', category: ' + randCategory);
@@ -163,6 +164,7 @@ function applyRelationships() {
                                                console.log(err);
                                            }
                                        });
+                                       */
 
                                 }
                             });

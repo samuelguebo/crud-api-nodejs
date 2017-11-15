@@ -1,4 +1,8 @@
 var moment = require('moment');
+var Post = require('../models/post');
+var User = require('../models/user');
+var Category = require('../models/category');
+
 var utils = {
     loremIpsumGenerator: 
         function (){
@@ -14,6 +18,30 @@ var utils = {
             var now = new moment();
             let date = moment().format('MMMM Do YYYY, h:mm:ss a');
             return date;
+        },
+    isDbEmpty: 
+        function(){
+            var isDbEmpty = true;
+            
+            // Check for Post model existence
+            Post.find( function(err, posts) {
+                if (!error){
+                    
+                    Category.find( function(err, posts) {
+                        if (!error){
+                            
+                            Category.find( function(err, posts) {
+                                if (!error){
+
+                                } else { console.log(err); }
+                            });
+                        } else { console.log(err); }
+                    });
+                    
+                } else { console.log(err); }
+            });
+            
+            return isDbEmpty;
         }
 }
 module.exports = utils;
