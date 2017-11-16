@@ -1,9 +1,11 @@
-// Require models
+// Reauirements
 
 var User        = require('../models/user.js');
 var Post        = require('../models/post.js');
 var Category    = require('../models/category.js');
 var utils       = require('../utils/utils.js');
+
+var forEach = require('async-foreach').forEach;
 
 // Seed the Database
 
@@ -157,20 +159,20 @@ function runQuerries(){
  */
 function loadAndSave( items, model, callback ) {
     
-    // use the model to save
-    for (item of items){
+    /*
+    forEach(items, function(item, index, arr) {
+        
+        // use the model to save
         console.log('loadAndSave item ' + item);
         new model(item).save( function(err, newItem){
             if (err){
                 console.log(err);
             }
         })
-    }
+    }, callback);
+    */
+    new model().collection.insert(items, callback);
     
-    // trigger the callback
-    if (callback && typeof callback === "function") {
-        callback();
-    }
 }
 
 /** 
@@ -188,11 +190,10 @@ function applyRelationships() {
                 if (!err) {
                     User.find( function (err, users ){
                         if (!err) {
-                            console.log("Entered applyRelationships without posts: " + posts);
+                            
                             // loop through existing posts
+
                             for (post of posts){
-                                
-                                console.log("Looping through posts in applyRelationships");
 
                                 // pick a random user 
                                 var randUser =  users[Math.floor(Math.random() * users.length)];
@@ -201,13 +202,14 @@ function applyRelationships() {
                                 var randCategory =  categories[Math.floor(Math.random() * categories.length)];
 
                                 // update the model
-                                Post.update( post, {$addToSet: {author: randUser._id} } ,
+                                console.log("Updating " + post.title + "categories: " + randCategory._id);
+                                Post.update( {_id: post._id}, {$addToSet: {categories: randCategory._id, author: randUser._id} } ,
 
                                 function(updateErr, raw) {
 
                                     // check for errors
                                    if(updateErr) {
-                                       console.log(updateErr);
+                                       //console.log(updateErr);
 
                                    }else{
                                        console.log(raw);
