@@ -5,8 +5,6 @@ var Post        = require('../models/post.js');
 var Category    = require('../models/category.js');
 var utils       = require('../utils/utils.js');
 
-var forEach = require('async-foreach').forEach;
-
 // Seed the Database
 
 var SeedLoader = 
