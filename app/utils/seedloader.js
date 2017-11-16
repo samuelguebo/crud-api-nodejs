@@ -23,7 +23,6 @@ var SeedLoader =
  * Make sure the Db is empty
  * and persist data only once
  */
-
 function oneTimeInsert( callback ){
     // check for Post model existence
     Post.find( function(err, posts) {
@@ -47,8 +46,9 @@ function oneTimeInsert( callback ){
                                     if (0 >= users.length) {
 
                                         // The Db is empty, fire the callback
-                                        callback();
-                                        return true;
+                                        if (callback && typeof callback === "function") {
+                                            callback();
+                                        }
 
                                     } else { return false; }
 
@@ -71,10 +71,9 @@ function oneTimeInsert( callback ){
 /**
  * Wrapper for insertion functions
  */
-
 function runQuerries(){
-    // create users seed
     
+    // create users seed
     const users = [
         {
             firstName: 'Shino',
@@ -96,7 +95,6 @@ function runQuerries(){
     ];
     
     // create posts seed
-    
     const posts = [
         {
             title: 'You Must Unlearn What You Have Learned',
@@ -136,7 +134,6 @@ function runQuerries(){
     ]
     
     // create categories seed
-
     const categories = [
         
         { title: 'Technology' }, { title: 'Health' }, { title: 'Sport' }, { title: 'Food' }, 
@@ -145,48 +142,57 @@ function runQuerries(){
     ]
     
     // populate Db sequentially using callbacks
+    let loadAndSavePosts = function() { loadAndSave( posts, Post, loadAndSaveUsers) };
+    let loadAndSaveUsers = function() { loadAndSave( users, User, loadAndSaveCategories) };
+    let loadAndSaveCategories = function() { loadAndSave( categories, Category, applyRelationships) };
     
-    let loadAndSavePosts = loadAndSave( posts, Post, loadAndSaveUsers);
-    let loadAndSaveUsers = loadAndSave( posts, Post, loadAndSaveCategories);
-    let loadAndSaveCategories = loadAndSave( posts, Post, applyRelationships);
-    
+    loadAndSavePosts();
 }
+
 /** 
  * Generic loade function
  * @param items, an array of json objects
  * @param model, the model used for persistence
  *
  */
-
-function loadAndSave( items, model ) {
+function loadAndSave( items, model, callback ) {
     
     // use the model to save
-    
     for (item of items){
-        let newModel = new model(item);
-        newModel.save();
-    }   
+        console.log('loadAndSave item ' + item);
+        new model(item).save( function(err, newItem){
+            if (err){
+                console.log(err);
+            }
+        })
+    }
+    
+    // trigger the callback
+    if (callback && typeof callback === "function") {
+        callback();
+    }
 }
 
 /** 
  * Apply the rules and bindings 
  * between models
  */
-
 function applyRelationships() {
         
     // find post and update them
     Post.find(function (err, posts){
         
-        if(!err){                
+        if(!err){ 
+            
             Category.find( function  (err, categories) {
                 if (!err) {
-
                     User.find( function (err, users ){
                         if (!err) {
-
+                            console.log("Entered applyRelationships without posts: " + posts);
                             // loop through existing posts
                             for (post of posts){
+                                
+                                console.log("Looping through posts in applyRelationships");
 
                                 // pick a random user 
                                 var randUser =  users[Math.floor(Math.random() * users.length)];
@@ -195,7 +201,7 @@ function applyRelationships() {
                                 var randCategory =  categories[Math.floor(Math.random() * categories.length)];
 
                                 // update the model
-                                Post.update( post, {$addToSet: {author: randUser._id} },{$addToSet: {categories: randCategory._id} } ,
+                                Post.update( post, {$addToSet: {author: randUser._id} } ,
 
                                 function(updateErr, raw) {
 
@@ -203,6 +209,8 @@ function applyRelationships() {
                                    if(updateErr) {
                                        console.log(updateErr);
 
+                                   }else{
+                                       console.log(raw);
                                    }
                             });
 
@@ -212,6 +220,8 @@ function applyRelationships() {
                 });   
                 } else { console.log('could not update the item'); }
             });
+        } else{
+            console.log(err);
         };
     });
 }
