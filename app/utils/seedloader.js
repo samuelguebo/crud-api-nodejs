@@ -144,11 +144,26 @@ function runQuerries(){
     ]
     
     // populate Db sequentially using callbacks
-    let loadAndSavePosts = function() { loadAndSave( posts, Post, loadAndSaveUsers) };
-    let loadAndSaveUsers = function() { loadAndSave( users, User, loadAndSaveCategories) };
-    let loadAndSaveCategories = function() { loadAndSave( categories, Category, applyRelationships) };
     
-    loadAndSavePosts();
+    // first Post
+    loadAndSave( posts, Post, 
+        function() { 
+        
+            // then User
+            loadAndSave( users, User, 
+                function() { 
+                
+                    // then Category
+                    loadAndSave( categories, Category, 
+                        
+                        // then relationships between models
+                        function() {  applyRelationships()}
+                   )
+                }
+             )
+        }
+   );
+                                 
 }
 
 /** 
@@ -158,21 +173,7 @@ function runQuerries(){
  *
  */
 function loadAndSave( items, model, callback ) {
-    
-    /*
-    forEach(items, function(item, index, arr) {
-        
-        // use the model to save
-        console.log('loadAndSave item ' + item);
-        new model(item).save( function(err, newItem){
-            if (err){
-                console.log(err);
-            }
-        })
-    }, callback);
-    */
     new model().collection.insert(items, callback);
-    
 }
 
 /** 
