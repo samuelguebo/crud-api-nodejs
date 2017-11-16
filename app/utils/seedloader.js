@@ -171,8 +171,8 @@ function runQuerries(){
 }
 
 /**
- * Make sure the Db is empty before 
- * persistingData
+ * Make sure the Db is empty
+ * and persist data only once
  */
 
 function oneTimeInsert( callback ){
