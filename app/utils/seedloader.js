@@ -11,7 +11,7 @@ var SeedLoader =
     
     function (request, response, next) {
         
-    // Running db imports
+    // Running db imports only once
     oneTimeInsert( runQuerries );
         
     console.log("Entered Seedloader middleware");
@@ -19,73 +19,57 @@ var SeedLoader =
 }
 
 
-/** 
- * Generic loade function
- * @param items, an array of json objects
- * @param model, the model used for persistence
- *
+/**
+ * Make sure the Db is empty
+ * and persist data only once
  */
 
-function loadAndSave( items, model ) {
-    
-    // use the model to save
-    
-    for (item of items){
-        let newModel = new model(item);
-        newModel.save();
-    }   
-}
+function oneTimeInsert( callback ){
+    // check for Post model existence
+    Post.find( function(err, posts) {
+        if (!err){
 
-/** 
- * Apply the rules and bindings 
- * between models
- */
+            // see if it's empty 
+            if (0 >= posts.length) {
 
-function applyRelationships() {
-        
-    // find post and update them
-    Post.find(function (err, posts){
-        
-        if(!err){                
-            Category.find( function  (err, categories) {
-                if (!err) {
+                // check for Category model existence
+                Category.find( function(err, categories) {
+                    if (!err){
 
-                    User.find( function (err, users ){
-                        if (!err) {
+                        // see if it's empty 
+                        if (0 >= categories.length) {
 
-                            // loop through existing posts
-                            for (post of posts){
+                            // check for User model existence
+                            User.find( function(err, users) {
+                                if (!err){
 
-                                // pick a random user 
-                                var randUser =  users[Math.floor(Math.random() * users.length)];
+                                    // see if it's empty 
+                                    if (0 >= users.length) {
 
-                                // pick a random category
-                                var randCategory =  categories[Math.floor(Math.random() * categories.length)];
+                                        // The Db is empty, fire the callback
+                                        callback();
+                                        return true;
 
-                                // update the model
-                                Post.update( post, {$addToSet: {author: randUser._id} },{$addToSet: {categories: randCategory._id} } ,
+                                    } else { return false; }
 
-                                function(updateErr, raw) {
+                                } else { console.log(err); }
+                        });
 
-                                    // check for errors
-                                   if(updateErr) {
-                                       console.log(updateErr);
+                        } else { return false; }
 
-                                   }
-                            });
+                    } else { console.log(err); }
+                });
+            } else {
+                return false;
+            }
 
-                        }
-                    } else { console.log('could not update the item'); } 
 
-                });   
-                } else { console.log('could not update the item'); }
-            });
-        };
+        } else { console.log(err); }
     });
 }
 
 /**
- * Wrapping the above functions
+ * Wrapper for insertion functions
  */
 
 function runQuerries(){
@@ -159,64 +143,78 @@ function runQuerries(){
         { title: 'Religion' }, { title: 'Politics' }, { title: 'Culture' }, 
         { title: 'Music' }, { title: 'Fashion' }, { title: 'Economy' }
     ]
-    // populate DB with array
     
-    loadAndSave( users, User);
-    loadAndSave( categories, Category);
-    loadAndSave( posts, Post);
+    // populate Db sequentially using callbacks
     
-    // apply the relationships between models
+    let loadAndSavePosts = loadAndSave( posts, Post, loadAndSaveUsers);
+    let loadAndSaveUsers = loadAndSave( posts, Post, loadAndSaveCategories);
+    let loadAndSaveCategories = loadAndSave( posts, Post, applyRelationships);
     
-    applyRelationships();
 }
-
-/**
- * Make sure the Db is empty
- * and persist data only once
+/** 
+ * Generic loade function
+ * @param items, an array of json objects
+ * @param model, the model used for persistence
+ *
  */
 
-function oneTimeInsert( callback ){
-    // check for Post model existence
-    Post.find( function(err, posts) {
-        if (!err){
+function loadAndSave( items, model ) {
+    
+    // use the model to save
+    
+    for (item of items){
+        let newModel = new model(item);
+        newModel.save();
+    }   
+}
 
-            // see if it's empty 
-            if (0 >= posts.length) {
+/** 
+ * Apply the rules and bindings 
+ * between models
+ */
 
-                // check for Category model existence
-                Category.find( function(err, categories) {
-                    if (!err){
+function applyRelationships() {
+        
+    // find post and update them
+    Post.find(function (err, posts){
+        
+        if(!err){                
+            Category.find( function  (err, categories) {
+                if (!err) {
 
-                        // see if it's empty 
-                        if (0 >= categories.length) {
+                    User.find( function (err, users ){
+                        if (!err) {
 
-                            // check for User model existence
-                            User.find( function(err, users) {
-                                if (!err){
+                            // loop through existing posts
+                            for (post of posts){
 
-                                    // see if it's empty 
-                                    if (0 >= users.length) {
+                                // pick a random user 
+                                var randUser =  users[Math.floor(Math.random() * users.length)];
 
-                                        // The Db is empty, fire the callback
-                                        callback();
-                                        return true;
+                                // pick a random category
+                                var randCategory =  categories[Math.floor(Math.random() * categories.length)];
 
-                                    } else { return false; }
+                                // update the model
+                                Post.update( post, {$addToSet: {author: randUser._id} },{$addToSet: {categories: randCategory._id} } ,
 
-                                } else { console.log(err); }
-                        });
+                                function(updateErr, raw) {
 
-                        } else { return false; }
+                                    // check for errors
+                                   if(updateErr) {
+                                       console.log(updateErr);
 
-                    } else { console.log(err); }
-                });
-            } else {
-                return false;
-            }
+                                   }
+                            });
 
+                        }
+                    } else { console.log('could not update the item'); } 
 
-        } else { console.log(err); }
+                });   
+                } else { console.log('could not update the item'); }
+            });
+        };
     });
 }
+
 
 module.exports = SeedLoader;
