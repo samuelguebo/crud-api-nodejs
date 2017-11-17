@@ -15,15 +15,10 @@ app.use(bodyParser.urlencoded({extended: false}));
 
 
 // Populate the Db with seed if it's empty
-
-//var utils = require('./app/utils/utils');
 var utils = require('./app/utils/utils');
 var seedLoader = require('./app/utils/seedloader');
     
 app.use(seedLoader);
-
-
-
 
 // Using routes
 app.use(require('./app/controllers'));

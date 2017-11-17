@@ -13,8 +13,6 @@ var SeedLoader =
         
     // Running db imports only once
     oneTimeInsert( runQuerries );
-        
-    console.log("Entered Seedloader middleware");
     next();
 }
 
@@ -53,19 +51,19 @@ function oneTimeInsert( callback ){
                                     } else { return false; }
 
                                 } else { console.log(err); }
-                        });
+                        }).limit(1);
 
                         } else { return false; }
 
                     } else { console.log(err); }
-                });
+                }).limit(1);
             } else {
                 return false;
             }
 
 
         } else { console.log(err); }
-    });
+    }).limit(1);
 }
 
 /**
@@ -201,7 +199,6 @@ function applyRelationships() {
                                 var randCategory =  categories[Math.floor(Math.random() * categories.length)];
 
                                 // update the model
-                                console.log("Updating " + post.title + "categories: " + randCategory._id);
                                 Post.update( {_id: post._id}, {$addToSet: {categories: randCategory._id, author: randUser._id} } ,
 
                                 function(updateErr, raw) {
