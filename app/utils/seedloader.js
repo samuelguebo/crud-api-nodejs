@@ -4,18 +4,21 @@ var User        = require('../models/user.js');
 var Post        = require('../models/post.js');
 var Category    = require('../models/category.js');
 var utils       = require('../utils/utils.js');
+var firstRun = require('first-run');
 
 // Seed the Database
 
 var SeedLoader = 
     
-    function (request, response, next) {
+function (request, response, next) {
         
     // Running db imports only once
-    oneTimeInsert( runQuerries );
+    if(firstRun()) {
+        console.log("Entered firstRun");
+        oneTimeInsert( runQuerries );
+    }
     next();
 }
-
 
 /**
  * Make sure the Db is empty
