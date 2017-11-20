@@ -1,9 +1,13 @@
-// new middleware
+/* Will be usefull for applying auth to specific endpoints
+var express = require('express');
+var Router  = express.Router();
+*/
+
 var auth = 
     function (req, res, next){
         
-        log.console("entered auth middleware");
+        console.log("entered auth middleware");
         next();
-    } 
+}; 
 
-modules.export = auth;
+module.exports = auth;

@@ -2,7 +2,6 @@
 var express     = require('express');
 var app         = express();
 var bodyParser  = require('body-parser');
-var jwt         = require('jsonwebtoken'); // used for handling tokens
 
 // Server port 
 var port = 5000;
