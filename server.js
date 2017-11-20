@@ -19,8 +19,11 @@ app.use(bodyParser.urlencoded({extended: false}));
 // Populate the Db with seed if it's empty
 var utils = require('./app/utils/utils');
 var seedLoader = require('./app/utils/seedloader');
-    
 app.use(seedLoader);
+
+// Authentication middleware
+var auth = require('./app/utils/auth');
+app.use(auth);
 
 // Using routes
 app.use(require('./app/controllers'));
