@@ -14,19 +14,8 @@ var db          = mongoose.connect("mongodb://localhost/blog-api-mean");
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 
-
-// Populate the Db with seed if it's empty
-var utils = require('./app/utils/utils');
-var seedLoader = require('./app/utils/seedloader');
-app.use(seedLoader);
-
-// Authentication middleware
-var auth = require('./app/utils/auth');
-app.use(auth);
-
-// Using routes
+// Using routes and middlewares
 app.use(require('./app/controllers'));
-
 
 app.listen(port, function() {
     console.log("The App is running on port " + port);
