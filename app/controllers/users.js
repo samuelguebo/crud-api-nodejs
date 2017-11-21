@@ -1,8 +1,6 @@
 var express     = require('express');
 var router      = express.Router();
 var mongoose    = require('mongoose');
-var jwt         = require('jsonwebtoken'); // used for handling tokens
-
 
 // Importing model
 var User = require('../models/user');

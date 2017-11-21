@@ -1,6 +1,9 @@
-var express = require('express');
-var router = express.Router();
-var User = require('../models/user');
+var express     = require('express');
+var router      = express.Router();
+var User        = require('../models/user');
+var config      = require('../utils/config');
+var jwt         = require('jsonwebtoken'); // used for handling tokens
+
 
 
 // Authentication
@@ -18,8 +21,7 @@ router.post('/', function (request, response) {
         }
         
         // If no error showed up, generate the token
-        var superSecret = 'eyJhZG1pbiI6dHJ1ZSwiaWF0IjoxNTEx';
-        var token = jwt.sign({admin:  true}, superSecret, {
+        var token = jwt.sign({admin:  true}, config.superSecret, {
           expiresIn: 24 * 60  // expires in 24 hours
         });
         
