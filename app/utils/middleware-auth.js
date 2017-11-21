@@ -1,13 +1,13 @@
-/* Will be usefull for applying auth to specific endpoints
-var express = require('express');
-var Router  = express.Router();
-*/
+// Applying authentication to specific endpoints
 
-var auth = 
-    function (req, res, next){
+var express = require('express');
+var router  = express.Router();
+
+// Protecting /posts path
+router.use('/posts', function (request, response, next){
         
         console.log("entered auth middleware");
-        next();
-}; 
+    next();
+}); 
 
-module.exports = auth;
+module.exports = router;
