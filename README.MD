@@ -17,9 +17,17 @@ node server
 nodemon server
 ```
 ## Features
-### Rest API
-### Token authentication
+### Initial data seed
+On first run, the app is populated with some initial data: posts, users, categories.
 
+### Restful API
+An api with the following routes
+* /posts
+* /categories
+* /users
+
+### Token authentication
+An authentication system is included using the [jsonwebtoken](https://github.com/auth0/node-jsonwebtoken) library. The `/users`
 
 ## License and credits
 
