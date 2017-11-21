@@ -4,6 +4,9 @@
 ## Installation
 
 ``` bash
+# clone the repository
+git clone https://github.com/samuelguebo/crud-api-nodejs
+
 # install dependencies
 npm install
 
@@ -12,6 +15,10 @@ node server
 
 # instead, you can start the server with nodemon
 nodemon server
+```
+## Features
+### Rest API
+### Token authentication
 
 
 ## License and credits
