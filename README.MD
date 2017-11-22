@@ -1,11 +1,11 @@
 # Crud Api in Node.js
-
+A restful API in Node.js with token-based authentication. This project uses a blog-like CRUD system.
 
 ## Installation
 
 ``` bash
 # clone the repository
-git clone https://github.com/samuelguebo/crud-api-nodejs
+git clone https://github.com/samuelguebo/crud-api-nodejs.git
 
 # install dependencies
 npm install
@@ -27,14 +27,14 @@ An api with the following routes
 * /users
 
 ### Token authentication
-An authentication system is included using the [jsonwebtoken](https://github.com/auth0/node-jsonwebtoken) library. The `/users`
+An authentication system is included using the [jsonwebtoken](https://github.com/auth0/node-jsonwebtoken) library. 
+* `/authentication` generates a token if valid `username` and `password` are provided via Post
+* `/users` is protected by the token authentication system
 
 ## License and credits
 
 The project is released for free under the terms of the GNU General Public License version 2
-and some parts under their respective licenses.
-In general words, feel free and encouraged to use, modify and redistribute this theme however you like.
-You may remove any copyright references (unless required by third party components) and crediting is not necessary. It is offered free of charge. Unless otherwise specified, all the files, scripts and images are licensed under [GNU General Public License version 2](https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html).
+and some parts under their respective licenses. In general words, feel free and encouraged to use, modify and redistribute this theme however you like. You may remove any copyright references (unless required by third party components) and crediting is not necessary. It is offered free of charge. Unless otherwise specified, all the files, scripts and images are licensed under [GNU General Public License version 2](https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html).
 
 
 # Contributors
