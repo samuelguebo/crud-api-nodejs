@@ -1,7 +1,7 @@
 # Crud Api with Node.js
 A restful API in Node.js with token-based authentication. This project uses a blog-like CRUD system.
 
-## Installation
+## Install
 
 ``` bash
 # clone the repository
@@ -9,7 +9,13 @@ git clone https://github.com/samuelguebo/crud-api-nodejs.git
 
 # install dependencies
 npm install
+```
+## Configure
+Global variables such as server port or token secret can be set in `app/utils/config.js`
 
+## Start the app
+
+``` bash
 # start the server
 node server
 
@@ -18,7 +24,7 @@ nodemon server
 ```
 ## Features
 ### Initial data seed
-On first run the app is populated with some initial data: posts, users, categories.
+On first run the app is populated with some initial data: posts, users, categories
 
 ### Restful API
 An api with the following routes
