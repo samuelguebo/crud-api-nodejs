@@ -18,7 +18,7 @@ nodemon server
 ```
 ## Features
 ### Initial data seed
-On first run, the app is populated with some initial data: posts, users, categories.
+On first run the app is populated with some initial data: posts, users, categories.
 
 ### Restful API
 An api with the following routes
